@@ -6,7 +6,7 @@ var BPE = /** @class */ (function () {
         this.document = document;
     }
     BPE.prototype.word_freq_obj = function () {
-        var wordList = this.document;
+        var wordList = this.document.map(function (word) { return word + "#"; }); // the "#" symbole indicate the end of word;
         var wordFreqObj = {};
         wordList.forEach(function (word) {
             if (word in wordFreqObj) {

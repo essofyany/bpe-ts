@@ -2,7 +2,7 @@ export class BPE {
   constructor(public document: string[]) {}
 
   word_freq_obj(): { [word: string]: number } {
-    const wordList = this.document;
+    const wordList = this.document.map((word: string) => word + "#"); // the "#" symbole indicate the end of word;
 
     const wordFreqObj: { [word: string]: number } = {};
 
@@ -84,7 +84,7 @@ export class BPE {
     const newSplitedWordObj: { [newSplitedWord: string]: number } = {};
 
     for (const [splitedWord, freq] of Object.entries(splitedWordFreqObj)) {
-     // 'w,o,r,d,#' => 'wo,r,d,#'
+      // 'w,o,r,d,#' => 'wo,r,d,#'
       const newSplitedWord = splitedWord.replace(bestPair, mergedPair);
       newSplitedWordObj[newSplitedWord] = freq;
     }

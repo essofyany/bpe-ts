@@ -34,8 +34,7 @@ function readDocuments(filePath) {
         encoding: "utf-8",
     })
         .trim()
-        .split(" ")
-        .map(function (word) { return word + "#"; }); // the "#" symbole indicate the end of word
+        .split(" ");
     return result;
 }
 exports.readDocuments = readDocuments;

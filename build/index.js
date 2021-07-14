@@ -3,12 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var BPE_1 = require("./BPE");
 var readData_1 = require("./utils/readData");
 var writeData_1 = require("./utils/writeData");
+// TODO: fixe issue of the end_of_word symbol appearence after cleaning arabic text  
 console.log("#######################");
 // load textual data => array of strings with filtering stopwords
-var document = readData_1.readDocuments(["src", "data", "dummy.txt"]);
+var document = readData_1.readDocuments(["src", "data", "arabic.txt"]);
 console.log("document:", document, "document length: ", document.length);
 console.log("######################");
-// clean up phase for Arabic text
+// // clean up phase only for Arabic text if text is not arabic it will return empty array
 // const cleaner = new Cleaner();
 // const cleanedText = cleaner.fullCleanUp(document);
 // console.log(
@@ -43,6 +44,6 @@ var bpe = new BPE_1.BPE(document);
 // );
 // console.log("Merge splited word with bestPair :", mergedSplitedWord);
 // console.log("#######################");
-var numberOfMerges = 10;
+var numberOfMerges = 20;
 var results = bpe._bpe(numberOfMerges);
 writeData_1.writeResults(["src", "data", "results.txt"], results);
