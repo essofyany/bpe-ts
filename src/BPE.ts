@@ -61,13 +61,15 @@ export class BPE {
 
   get_and_merge_best_pair(extractedPairsObj: { [pairs: string]: number }): {
     bestPair: string;
+    bestPairFreq: number;
     mergedPair: string;
   } {
     const pairsAndFreq = Object.entries(extractedPairsObj); //extractedPairsObj is sorted the top prop is the best pair
     const bestPair = pairsAndFreq[0][0]; // this get the fisrt pair in pairsAndFreq (2D array)
+    const bestPairFreq = pairsAndFreq[0][1]; // this get the fisrt pair in pairsAndFreq (2D array)
     const mergedPair = bestPair.replace(",", ""); // 'l,o' => 'lo'
 
-    return { bestPair, mergedPair };
+    return { bestPair, bestPairFreq, mergedPair };
   }
 
   merge_splited_word(
@@ -75,6 +77,7 @@ export class BPE {
     splitedWordFreqObj: { [splitedWord: string]: number },
     bestPairObj: {
       bestPair: string;
+      bestPairFreq: number;
       mergedPair: string;
     }
   ): {
@@ -101,7 +104,13 @@ export class BPE {
     while (itr < numberOfMerges) {
       let extractedPairsObj = this.extract_pairs(splitedWordFreqObj);
       let bestPairObj = this.get_and_merge_best_pair(extractedPairsObj);
-      console.log("############", itr, "###########");
+      console.log(
+        "############ Iteration: ",
+        itr,
+        " : ",
+        bestPairObj,
+        "###########"
+      );
       // console.log("bestPairObj", bestPairObj);
       bpeList.push(bestPairObj.mergedPair);
 

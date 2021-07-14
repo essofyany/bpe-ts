@@ -54,8 +54,9 @@ var BPE = /** @class */ (function () {
     BPE.prototype.get_and_merge_best_pair = function (extractedPairsObj) {
         var pairsAndFreq = Object.entries(extractedPairsObj); //extractedPairsObj is sorted the top prop is the best pair
         var bestPair = pairsAndFreq[0][0]; // this get the fisrt pair in pairsAndFreq (2D array)
+        var bestPairFreq = pairsAndFreq[0][1]; // this get the fisrt pair in pairsAndFreq (2D array)
         var mergedPair = bestPair.replace(",", ""); // 'l,o' => 'lo'
-        return { bestPair: bestPair, mergedPair: mergedPair };
+        return { bestPair: bestPair, bestPairFreq: bestPairFreq, mergedPair: mergedPair };
     };
     BPE.prototype.merge_splited_word = function (
     // {'w,o,r,d,#': 12, ...} => [['w,o,r,d,#', 12], []]
@@ -78,7 +79,7 @@ var BPE = /** @class */ (function () {
         while (itr < numberOfMerges) {
             var extractedPairsObj = this.extract_pairs(splitedWordFreqObj);
             var bestPairObj = this.get_and_merge_best_pair(extractedPairsObj);
-            console.log("############", itr, "###########");
+            console.log("############ Iteration: ", itr, " : ", bestPairObj, "###########");
             // console.log("bestPairObj", bestPairObj);
             bpeList.push(bestPairObj.mergedPair);
             splitedWordFreqObj = this.merge_splited_word(splitedWordFreqObj, bestPairObj);

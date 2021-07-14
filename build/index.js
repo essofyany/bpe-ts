@@ -1,17 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BPE_1 = require("./BPE");
+var Cleaner_1 = require("./Cleaner");
 var readData_1 = require("./utils/readData");
 var writeData_1 = require("./utils/writeData");
-// TODO: fixe issue of the end_of_word symbol appearence after cleaning arabic text  
+// TODO: fixe issue of the end_of_word symbol appearence after cleaning arabic text
 console.log("#######################");
 // load textual data => array of strings with filtering stopwords
 var document = readData_1.readDocuments(["src", "data", "arabic.txt"]);
-console.log("document:", document, "document length: ", document.length);
+// console.log("document:",document, "document length: ", document.length);
+console.log("document length: ", document.length);
 console.log("######################");
-// // clean up phase only for Arabic text if text is not arabic it will return empty array
-// const cleaner = new Cleaner();
-// const cleanedText = cleaner.fullCleanUp(document);
+// clean up phase only for Arabic text if text is not arabic it will return empty array
+var cleaner = new Cleaner_1.Cleaner();
+var cleanedText = cleaner.fullCleanUp(document);
 // console.log(
 //   "cleanedText:",
 //   cleanedText,
@@ -19,7 +21,6 @@ console.log("######################");
 //   cleanedText.length
 // );
 // console.log("######################");
-// writeResults(["src", "data", "results.txt"], document);
 var bpe = new BPE_1.BPE(document);
 // creat {word: frequency} => {'low': 2, 'new': 1, ...}
 // const wordFreqObj = bpe.word_freq_obj();
@@ -44,6 +45,6 @@ var bpe = new BPE_1.BPE(document);
 // );
 // console.log("Merge splited word with bestPair :", mergedSplitedWord);
 // console.log("#######################");
-var numberOfMerges = 20;
+var numberOfMerges = 1000;
 var results = bpe._bpe(numberOfMerges);
 writeData_1.writeResults(["src", "data", "results.txt"], results);
