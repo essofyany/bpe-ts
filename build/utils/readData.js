@@ -31,7 +31,7 @@ function readDocuments(filePath) {
     var documentsDataPath = path.join.apply(path, __spreadArray([process.cwd()], filePath));
     var result = fs
         .readFileSync(documentsDataPath, {
-        encoding: "utf8",
+        encoding: "utf-8",
     })
         .trim()
         .split(" ")

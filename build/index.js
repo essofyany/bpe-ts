@@ -1,16 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var BPE_1 = require("./BPE");
 var readData_1 = require("./utils/readData");
+var writeData_1 = require("./utils/writeData");
 console.log("#######################");
 // load textual data => array of strings with filtering stopwords
 var document = readData_1.readDocuments(["src", "data", "dummy.txt"]);
 console.log("document:", document, "document length: ", document.length);
-console.log("#######################");
-// // clean up phase for Arabic text
+console.log("######################");
+// clean up phase for Arabic text
 // const cleaner = new Cleaner();
 // const cleanedText = cleaner.fullCleanUp(document);
-// const bpe = new BPE(cleanedText);
-// // creat {word: frequency} => {'low': 2, 'new': 1, ...}
+// console.log(
+//   "cleanedText:",
+//   cleanedText,
+//   "cleanedText length: ",
+//   cleanedText.length
+// );
+// console.log("######################");
+// writeResults(["src", "data", "results.txt"], document);
+var bpe = new BPE_1.BPE(document);
+// creat {word: frequency} => {'low': 2, 'new': 1, ...}
 // const wordFreqObj = bpe.word_freq_obj();
 // console.log("word Frequency Object:", wordFreqObj);
 // console.log("#######################");
@@ -33,6 +43,6 @@ console.log("#######################");
 // );
 // console.log("Merge splited word with bestPair :", mergedSplitedWord);
 // console.log("#######################");
-// let numberOfMerges = 700;
-// const results = bpe._bpe(numberOfMerges);
-// writeResults(["src", "data", "results.txt"], results);
+var numberOfMerges = 10;
+var results = bpe._bpe(numberOfMerges);
+writeData_1.writeResults(["src", "data", "results.txt"], results);

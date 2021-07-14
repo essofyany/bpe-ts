@@ -71,6 +71,7 @@ export class BPE {
   }
 
   merge_splited_word(
+    // {'w,o,r,d,#': 12, ...} => [['w,o,r,d,#', 12], []]
     splitedWordFreqObj: { [splitedWord: string]: number },
     bestPairObj: {
       bestPair: string;
@@ -83,6 +84,7 @@ export class BPE {
     const newSplitedWordObj: { [newSplitedWord: string]: number } = {};
 
     for (const [splitedWord, freq] of Object.entries(splitedWordFreqObj)) {
+     // 'w,o,r,d,#' => 'wo,r,d,#'
       const newSplitedWord = splitedWord.replace(bestPair, mergedPair);
       newSplitedWordObj[newSplitedWord] = freq;
     }

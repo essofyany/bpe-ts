@@ -57,11 +57,14 @@ var BPE = /** @class */ (function () {
         var mergedPair = bestPair.replace(",", ""); // 'l,o' => 'lo'
         return { bestPair: bestPair, mergedPair: mergedPair };
     };
-    BPE.prototype.merge_splited_word = function (splitedWordFreqObj, bestPairObj) {
+    BPE.prototype.merge_splited_word = function (
+    // {'w,o,r,d,#': 12, ...} => [['w,o,r,d,#', 12], []]
+    splitedWordFreqObj, bestPairObj) {
         var bestPair = bestPairObj.bestPair, mergedPair = bestPairObj.mergedPair;
         var newSplitedWordObj = {};
         for (var _i = 0, _a = Object.entries(splitedWordFreqObj); _i < _a.length; _i++) {
             var _b = _a[_i], splitedWord = _b[0], freq = _b[1];
+            // 'w,o,r,d,#' => 'wo,r,d,#'
             var newSplitedWord = splitedWord.replace(bestPair, mergedPair);
             newSplitedWordObj[newSplitedWord] = freq;
         }
